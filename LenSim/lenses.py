@@ -22,7 +22,6 @@ class opticalSystem:
         ##np.append(self.x, self.x[-1] + 1000)
         #then make a list of the Rates of Convergance of our lenses
         self.c = [1/v for v in focalsIn]
-        print(self.c)
     
     def simRay(self,rayC, y1):
         '''
