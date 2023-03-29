@@ -6,10 +6,8 @@
 
 
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
-def test():
-    print("Heyo!")
 
 class opticalSystem:
     '''opticalSystem is a class of object that takes in
@@ -24,6 +22,7 @@ class opticalSystem:
         ##np.append(self.x, self.x[-1] + 1000)
         #then make a list of the Rates of Convergance of our lenses
         self.c = [1/v for v in focalsIn]
+        print(self.c)
     
     def simRay(self,rayC, y1):
         '''
@@ -32,12 +31,13 @@ class opticalSystem:
         y0 = y1 + (rayC*self.delX[0])
         y = [y0, y1]
         slope = rayC
-        for i in range(0,len(self.c)-1):
-            slope = slope + self.c[i]*y[-1]
-            y.append(y[-1] - slope*self.delX[i])
+        for i in range(0,len(self.c)):
+            slope = slope - self.c[i]*y[-1]
+            newY = y[-1] + slope*self.delX[i+2]
+            y.append(newY)
             
         x = np.array(self.x)
-        
+
         return np.array([x,y])
     
 
@@ -114,9 +114,10 @@ def rayTracePlot(lens, rays=imageRays(9999,1000,10,25)):
             plt.plot(X[i],y[i],'b',linewidth=0.5)
 
         #draw verticle lines for lens centers
-        for v in np.array(X)[0,:]:
+        for v in np.array(X)[0,1:-1]:
             plt.axvline(x = v, color = 'k', label = 'axvline - full height')
 
         #plot a star where rays intersect
         images = intersection(X[0],y[0],X[-1],y[-1])
-        plt.plot(images[:,0],images[:,1],'k*')
+        if images != []:
+            plt.plot(images[:,0],images[:,1],'k*')
