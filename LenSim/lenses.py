@@ -6,6 +6,7 @@
 
 
 import numpy as np
+import matplotlib as plt
 
 def test():
     print("Heyo!")
@@ -75,3 +76,47 @@ def imageRays(distance,yIn,lensRadius,numRays):
     
     
     return np.array(rays)
+
+
+def plotLenses(x, y, title, xname,yname,line):
+    plt.figure(figsize=(12, 6), dpi=80)
+    #plt.xlim((-1.2,-.2))
+    #plt.ylim((25,75))
+    plt.scatter(x,y, s=2)
+    if line:
+        xlin=np.linspace(0,300,1000)
+        plt.plot(xlin,xlin)
+    plt.ylabel(yname)
+    plt.xlabel(xname)
+    plt.title(title)
+    plt.show()
+
+
+def rayTracePlot(lens, rays=imageRays(9999,1000,10,25)):
+        '''This function takes in a lens object and optionally a set of incoming rays (if null, will use generic rays)
+        It outputs nothing, but makes a pretty ray trace graph!'''
+        
+        X = []
+        y = []
+
+        #calculate y values
+        for i in range(0,len(rays[:,0]),1):
+            tracedRay = lens.simRay(rays[i,0],rays[i,1])
+            X.append(tracedRay[0])
+            y.append(tracedRay[1])
+
+        #pretty prams
+        plt.figure(figsize=(12, 6), dpi=80)
+        plt.ylim((-10, 10))
+
+        #plot ray lines
+        for i in range(0,len(rays[:,0]),1):
+            plt.plot(X[i],y[i],'b',linewidth=0.5)
+
+        #draw verticle lines for lens centers
+        for v in np.array(X)[0,:]:
+            plt.axvline(x = v, color = 'k', label = 'axvline - full height')
+
+        #plot a star where rays intersect
+        images = intersection(X[0],y[0],X[-1],y[-1])
+        plt.plot(images[:,0],images[:,1],'k*')
