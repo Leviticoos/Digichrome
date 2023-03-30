@@ -78,6 +78,9 @@ def imageRays(distance,yIn,lensRadius,numRays):
 
 
 def plotLenses(x, y, title, xname,yname,line):
+    '''
+    This function takes in a list of x values, a list of y values, a title, x axis label, y axis label, and a bool that tells it to plot a y=x line.
+    '''
     plt.figure(figsize=(12, 6), dpi=80)
     #plt.xlim((-1.2,-.2))
     #plt.ylim((25,75))
