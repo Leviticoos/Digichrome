@@ -94,21 +94,21 @@ def plotLenses(x, y, title, xname,yname,line):
     plt.show()
 
 
-    def plotLensesColor(x, y, z, title, xname,yname,zname):
-        '''
-        This function takes in a list of x values, a list of y values, z values, a title, x axis label, y axis label, and z lable.
-        The z dimension is shown through color!
-        '''
-        plt.figure(figsize=(12, 6), dpi=80)
-        #plt.xlim((-1.2,-.2))
-        #plt.ylim((25,75))
-        plt.scatter(x,y,c=z, s=2)
-        cbar = plt.colorbar()
-        plt.ylabel(yname)
-        plt.xlabel(xname)
-        cbar.set_label(zname)
-        plt.title(title)
-        plt.show()
+def plotLensesColor(x, y, z, title, xname,yname,zname):
+    '''
+    This function takes in a list of x values, a list of y values, z values, a title, x axis label, y axis label, and z lable.
+    The z dimension is shown through color!
+    '''
+    plt.figure(figsize=(12, 6), dpi=80)
+    #plt.xlim((-1.2,-.2))
+    #plt.ylim((25,75))
+    plt.scatter(x,y,c=z, s=2)
+    cbar = plt.colorbar()
+    plt.ylabel(yname)
+    plt.xlabel(xname)
+    cbar.set_label(zname)
+    plt.title(title)
+    plt.show()
 
 
 def rayTracePlot(lens, rays=imageRays(9999,1000,10,25)):
